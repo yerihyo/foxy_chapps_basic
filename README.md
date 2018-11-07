@@ -1,2 +1,2 @@
-# foxyapps_basic
-Basic foxyapps
+# foxytrixy basic chatapps
+Basic chatapps
