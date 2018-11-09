@@ -1,2 +1,2 @@
-# foxytrixy basic chatapps
+# trickboxes_basic
 Basic chatapps
