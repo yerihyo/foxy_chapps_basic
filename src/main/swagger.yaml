@@ -1,0 +1,33 @@
+swagger: '2.0'
+info:
+  title: test
+  version: "0.1.0"
+consumes:
+  - application/json
+produces:
+  - application/json
+#parameters:
+#  $ref: src/clock/swagger.yaml
+paths:
+  /hello_world:
+    get:
+      tags: [hello_world]
+      operationId: src.main.test.hello_world
+      responses:
+        200:
+          description: Hello world sucessful
+        404:
+          description: Not Found
+
+  /clock:
+    get:
+      tags: [clock]
+      operationId: src.clock.views.lookup
+      summary: Return current time
+      responses:
+        200:
+          description: Return clock successful
+        404:
+          description: Error
+
+

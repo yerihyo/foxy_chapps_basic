@@ -17,8 +17,7 @@ basedir = os.path.abspath(os.path.dirname(__file__))
 
 # app initialization
 cx_app = connexion.App(__name__,) # specification_dir='swagger/')
-cx_app.add_api('swagger.yaml') #, arguments={'api_local': 'local_value'})
-#cx_app.add_api('../clock/swagger.yaml') #, arguments={'api_local': 'local_value'})
+cx_app.add_api('swagger.yaml', arguments={'api_local': 'local_value'})
 
 
 #app = Flask(__name__)
