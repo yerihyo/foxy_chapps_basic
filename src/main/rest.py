@@ -2,8 +2,8 @@ from flask_sqlalchemy import SQLAlchemy
 
 import graphene
 
-from src.main.models import User, Post
-from src.main.schema import PostObject
+from main.models import User, Post
+from main.schema import PostObject
 
 db = SQLAlchemy()
 class CreatePost(graphene.Mutation):

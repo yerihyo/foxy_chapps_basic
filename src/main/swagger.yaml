@@ -1,0 +1,42 @@
+swagger: '2.0'
+info:
+  title: test
+  version: "0.1.0"
+consumes:
+  - application/json
+produces:
+  - application/json
+#parameters:
+#  $ref: src/date/swagger.yaml
+paths:
+  /hello_world:
+    get:
+      tags: [hello_world]
+      operationId: main.test.hello_world
+      responses:
+        200:
+          description: Hello world sucessful
+        404:
+          description: Not Found
+
+  /date:
+    get:
+      tags: [date]
+      operationId: tricks.date.views.lookup
+      summary: Return current time
+      parameters:
+      - name: uuid_COMMAND
+        in: query
+        description: hello
+        type: string
+      - name: str_LOCs
+        in: query
+        required: false
+        type: string
+      responses:
+        200:
+          description: Return date successful
+        404:
+          description: Error
+
+
