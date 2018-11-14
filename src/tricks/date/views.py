@@ -12,14 +12,14 @@ from urllib.request import urlretrieve
 from urllib.parse import urljoin
 from zipfile import ZipFile
 
-
+lmap = lambda f,l: list(map(f,l))
 
 def str_LOC2timezone(str_LOC):
     try: return pytz.timezone(str_LOC)
     except pytz.exceptions.UnknownTimeZoneError: pass
 
-    h_city2tz_name = create_str_CITY2tz_name()
-    h_set = h_city2tz_name[str_LOC]
+    h_city2tz_name = str_LOC_expansion(create_str_CITY2tz_name())
+    h_set = h_city2tz_name[str_LOC.lower()]
     if len(h_set)>1: raise Exception()
     if not h_set: raise Exception()
 
@@ -27,18 +27,22 @@ def str_LOC2timezone(str_LOC):
     return pytz.timezone(tz_name)
 
 
-
-def lookup(uuid_COMMAND, str_LOC=None,):
+def str_LOC2lookup(str_LOC):
     now_UTC = datetime.now(pytz.utc)
 
-    if str_LOC is None: str_LOC = "America/Los_Angeles"
     tz = str_LOC2timezone(str_LOC)
     now_TZ = dt2timezone(now_UTC, tz)
 
-
     str_RESULT = "[{0}] {1}".format(str_LOC, now_TZ.strftime("%Y.%m.%d %I:%M:%S %p"))
-    #print(str_LOC, str_RESULT)
-    return make_response(str_RESULT)
+    return str_RESULT
+
+def lookup(uuid_COMMAND, str_LOCs=None,):
+
+    if str_LOCs is None: str_LOC_list = ["America/Los_Angeles"]
+    else: str_LOC_list = str_LOCs.split(",")
+
+    l = lmap(str_LOC2lookup, str_LOC_list)
+    return make_response("\n".join(l))
 
     # for tzname in h[city]:
     #     now = datetime.now(pytz.timezone(tzname))
@@ -68,9 +72,22 @@ def create_str_CITY2tz_name():
                 if timezone:
                     for city in [name, asciiname] + alternatenames.split(b','):
                         city = city.decode('utf-8').strip()
-                        if city:
-                            h[city].add(timezone)
+                        if not city: continue
+
+                        h[city].add(timezone)
     return h
+
+def str_LOC_expansion(h_IN):
+    h_OUT = dict(h_IN)
+
+    for str_NAME, set_TZ in h_IN.items():
+        str_LOWER = str_NAME.lower()
+        if str_LOWER not in h_OUT: h_OUT[str_LOWER] = set_TZ
+
+        city_CONCAT = "".join(str_LOWER.split())
+        if city_CONCAT not in h_OUT: h_OUT[city_CONCAT] = set_TZ
+
+    return h_OUT
 
     # print("Number of available city names (with aliases): %d" % len(city2tz))
     #
