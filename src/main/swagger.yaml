@@ -24,6 +24,15 @@ paths:
       tags: [clock]
       operationId: src.clock.views.lookup
       summary: Return current time
+      parameters:
+      - name: uuid_COMMAND
+        in: query
+        description: hello
+        type: string
+      - name: timezone
+        in: query
+        required: false
+        type: string
       responses:
         200:
           description: Return clock successful

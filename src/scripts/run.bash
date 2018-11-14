@@ -8,6 +8,6 @@ BASIC_DIR=$(dirname $SCRIPTS_DIR)
 
 #python $BASIC_DIR/app.py runserver
 
-export FLASK_APP=src.main.app.py
+export FLASK_APP=main.app.py
 export FLASK_DEBUG=1
 flask run
