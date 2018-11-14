@@ -2,7 +2,7 @@
 import graphene
 from graphene_sqlalchemy import SQLAlchemyObjectType, SQLAlchemyConnectionField
 
-from src.main.models import Post, User
+from main.models import Post, User
 
 
 class PostObject(SQLAlchemyObjectType):

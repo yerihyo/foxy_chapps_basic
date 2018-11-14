@@ -12,7 +12,7 @@ paths:
   /hello_world:
     get:
       tags: [hello_world]
-      operationId: src.main.test.hello_world
+      operationId: main.test.hello_world
       responses:
         200:
           description: Hello world sucessful
@@ -22,14 +22,14 @@ paths:
   /clock:
     get:
       tags: [clock]
-      operationId: src.clock.views.lookup
+      operationId: tricks.clock.views.lookup
       summary: Return current time
       parameters:
       - name: uuid_COMMAND
         in: query
         description: hello
         type: string
-      - name: timezone
+      - name: str_LOC
         in: query
         required: false
         type: string

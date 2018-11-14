@@ -10,10 +10,14 @@ import graphene
 from graphene_sqlalchemy import SQLAlchemyObjectType, SQLAlchemyConnectionField
 from flask_graphql import GraphQLView
 
-from src.main.schema import Query
-from src.main.rest import Mutation
+from main.schema import Query
+from main.rest import Mutation
+import sys
 
-basedir = os.path.abspath(os.path.dirname(__file__))
+from flask import cli
+
+BASE_DIR = os.path.abspath(os.path.dirname(__file__))
+SRC_DIR = os.path.join(BASE_DIR,"src")
 
 # app initialization
 cx_app = connexion.App(__name__,) # specification_dir='swagger/')
@@ -27,7 +31,7 @@ app.debug = True
 
 
 # Configs
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(basedir, 'data.sqlite')
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(BASE_DIR, 'data.sqlite')
 app.config['SQLALCHEMY_COMMIT_ON_TEARDOWN'] = True
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 
@@ -47,13 +51,14 @@ app.add_url_rule(
     )
 )
 
+
 # @app.route('/')
 # def index():
 #     return '<p> Hello World</p>'
 
 if __name__ == '__main__':
-     #app.run()
-     cx_app.run(port=5000)
-     #app.run(port=args.port_number, server='flask')
+    #app.run()
+    cx_app.run(port=5000)
+    #app.run(port=args.port_number, server='flask')
 
 

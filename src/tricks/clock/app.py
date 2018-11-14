@@ -10,8 +10,8 @@ import graphene
 from graphene_sqlalchemy import SQLAlchemyObjectType, SQLAlchemyConnectionField
 from flask_graphql import GraphQLView
 
-from src.main.schema import Query
-from src.main.rest import Mutation
+from main.schema import Query
+from main.rest import Mutation
 
 basedir = os.path.abspath(os.path.dirname(__file__))
 
@@ -33,7 +33,7 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 # Modules
 db = SQLAlchemy(app)
 
-
+from flask import cli
 schema = graphene.Schema(query=Query, mutation=Mutation)
 
 # Routes
