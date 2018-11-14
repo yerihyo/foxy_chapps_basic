@@ -36,19 +36,15 @@ def str_LOC2lookup(str_LOC):
     str_RESULT = "[{0}] {1}".format(str_LOC, now_TZ.strftime("%Y.%m.%d %I:%M:%S %p"))
     return str_RESULT
 
-def lookup(uuid_COMMAND, str_LOCs=None,):
 
+
+def lookup(uuid_COMMAND, str_LOCs=None,):
     if str_LOCs is None: str_LOC_list = ["America/Los_Angeles"]
     else: str_LOC_list = str_LOCs.split(",")
 
     l = lmap(str_LOC2lookup, str_LOC_list)
     return make_response("\n".join(l))
 
-    # for tzname in h[city]:
-    #     now = datetime.now(pytz.timezone(tzname))
-    #     print("")
-    #     print("%s is in %s timezone" % (city, tzname))
-    #     print("Current time in %s is %s" % (city, now.strftime(fmt)))
 
 
 def create_str_CITY2tz_name():
