@@ -38,26 +38,56 @@ paths:
           description: time trick
         404:
           description: Error
-    post:
-      tags: [time]
-      operationId: tricks.time.views.lookup
-      requestBody:
-        summary: Return current time
-        consumes:
-          - application/x-www-form-urlencoded
-        parameters:
-        - name: uuid_COMMAND
-          in: formData
-          description: hello
-          type: string
-        - name: str_LOCs
-          in: query
-          required: false
-          type: string
-        responses:
-          200:
-            description: time trick
-          404:
-            description: Error
+
+#    post:
+#      operationId: tricks.time.views.lookup
+#      parameters:
+#        schema:
+#          type: "object"
+#            required:
+#            - "name"
+#            properties:
+#              name:
+#                type: "string"
+#              tag:
+#                type: "string"
+#      responses:
+#        200:
+#          description: time trick
+#        404:
+#          description: Error
 
 
+
+
+
+#    post:
+#      operationId: tricks.time.views.lookup
+#      summary: Return current time
+#      requestBody:
+#        content:
+#          application/x-www-form-urlencoded:
+#            schema:
+#              type: objects
+#              properties:
+#                uuid_COMMAND:
+#                  type: string
+#                str_LOC:
+#                  type: string
+
+
+
+#    post:
+#      summary: Creates a user.
+#      requestBody:
+#        required: true
+#        content:
+#          application/x-www-form-urlencoded:
+#            schema:
+#              type: object
+#              properties:
+#                username:
+#                  type: string
+#      responses:
+#        '201':
+#          description: Created
