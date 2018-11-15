@@ -19,10 +19,10 @@ paths:
         404:
           description: Not Found
 
-  /date:
+  /time:
     get:
-      tags: [date]
-      operationId: tricks.date.views.lookup
+      tags: [time]
+      operationId: tricks.time.views.lookup
       summary: Return current time
       parameters:
       - name: uuid_COMMAND
@@ -35,8 +35,29 @@ paths:
         type: string
       responses:
         200:
-          description: Return date successful
+          description: time trick
         404:
           description: Error
+    post:
+      tags: [time]
+      operationId: tricks.time.views.lookup
+      requestBody:
+        summary: Return current time
+        consumes:
+          - application/x-www-form-urlencoded
+        parameters:
+        - name: uuid_COMMAND
+          in: formData
+          description: hello
+          type: string
+        - name: str_LOCs
+          in: query
+          required: false
+          type: string
+        responses:
+          200:
+            description: time trick
+          404:
+            description: Error
 
 
