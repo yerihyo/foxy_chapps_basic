@@ -38,13 +38,19 @@ def str_LOC2lookup(str_LOC):
 
 
 
-def lookup(uuid_COMMAND, str_LOCs=None,):
+def get(uuid_COMMAND, str_LOCs=None,):
     if str_LOCs is None: str_LOC_list = ["America/Los_Angeles"]
     else: str_LOC_list = str_LOCs.split(",")
 
     l = lmap(str_LOC2lookup, str_LOC_list)
     return make_response("\n".join(l))
 
+def post(j_env):
+    uuid_COMMAND = j_env["uuid_COMMAND"]
+    str_LOCs = j_env.get("str_LOCs")
+
+    # raise Exception(uuid_COMMAND, str_LOCs)
+    return get(uuid_COMMAND,str_LOCs=str_LOCs)
 
 
 def create_str_CITY2tz_name():
