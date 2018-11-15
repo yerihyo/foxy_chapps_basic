@@ -32,138 +32,34 @@ paths:
         schema:
           type: object
           properties:
-            uuid_COMMAND:
-              type: string
-              example: "asdfasdfasdfasdf"
-            str_LOCs:
-              type: string
-              example: "tokyo"
-          required:
-            - uuid_COMMAND
+            chatroom:
+              type: object
+              properties:
+                timezone:
+                  $ref: "#/definitions/Timezone"
+            command:
+              type: object
+              properties:
+                uuid:
+                  $ref: "#/definitions/Uuid"
+                locations:
+                  $ref: "#/definitions/Locations_timezone"
+
       responses:
         200:
           description: update time
         404:
           description: Error
-#    get:
-#      tags: [time]
-#      operationId: tricks.time.replies.get
-#      summary: Return current time
-#      parameters:
-#      - name: uuid_COMMAND
-#        in: query
-#        description: hello
-#        type: string
-#      - name: str_LOCs
-#        in: query
-#        required: false
-#        type: string
-#      responses:
-#        200:
-#          description: time trick
-#        404:
-#          description: Error
 
-
-#    post:
-#      tags: [time]
-#      operationId: tricks.time.views.lookup
-#      summary: Return current time
-#      parameters:
-#      - name: uuid_COMMAND
-#        in: query
-#        description: hello
-#        type: string
-#      - name: str_LOCs
-#        in: query
-#        required: false
-#        type: string
-#      responses:
-#        200:
-#          description: time trick
-#        404:
-#          description: Error
-
-
-#      parameters:
-#        schema:
-#          type: "object"
-#            required:
-#            - "name"
-#            properties:
-#              name:
-#                type: "string"
-#              tag:
-#                type: "string"
-#      responses:
-#        200:
-#          description: time trick
-#        404:
-#          description: Error
-
-
-
-
-
-#    post:
-#      operationId: tricks.time.views.lookup
-#      summary: Return current time
-#      requestBody:
-#        content:
-#          application/x-www-form-urlencoded:
-#            schema:
-#              type: objects
-#              properties:
-#                uuid_COMMAND:
-#                  type: string
-#                str_LOC:
-#                  type: string
-
-
-
-#    post:
-#      summary: Creates a user.
-#      requestBody:
-#        required: true
-#        content:
-#          application/x-www-form-urlencoded:
-#            schema:
-#              type: object
-#              properties:
-#                username:
-#                  type: string
-#      responses:
-#        '201':
-#          description: Created
-
-#definitions:
-#  Time:
-#    type: object
-#    required:
-#      - utterance
-#      - channel
-#      - franchise_id
-#    properties:
-#      utterance:
-#        type: string
-#        example: "where is my red jacket?"
-#      franchise_id:
-#        type: integer
-#        example: 23255
-#      channel:
-#        type: integer
-#        example: 1
-#      intent_ids:
-#        type: array
-#        items:
-#          type: string
-#          description: A string of text
-#        example: ["5a0ccdb17f2b4c1dcbc02aaa"]
-#      run_time_choices:
-#        type: array
-#        items:
-#          $ref: "#/definitions/Run_time_choice"
-#      botlet_id:
-#        type: string
-#        example: alerts
-#        description: A string representing the current botlet
+definitions:
+  Uuid:
+    type: string
+    example: "asdfasdfasdfasdf"
+  Timezone:
+    type: string
+    example: "Asia/Singapore"
+  Locations_timezone:
+    type: array
+    items:
+      type: string
+    example: ["tokyo","Asia/Bangkok"]

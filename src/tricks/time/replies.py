@@ -1,10 +1,11 @@
 from datetime import datetime
+from functools import reduce
 
 import pytz
 from flask import make_response
 
 import settings
-from utils.utils import dt2timezone
+from utils.utils import dt2timezone, h_propdown
 import os
 from collections import defaultdict
 from datetime import datetime
@@ -38,19 +39,25 @@ def str_LOC2lookup(str_LOC):
 
 
 
-def get(uuid_COMMAND, str_LOCs=None,):
-    if str_LOCs is None: str_LOC_list = ["America/Los_Angeles"]
-    else: str_LOC_list = str_LOCs.split(",")
-
-    l = lmap(str_LOC2lookup, str_LOC_list)
-    return make_response("\n".join(l))
+# def get(uuid_COMMAND, str_LOC_list=None,):
+#     if str_LOC_list is None: str_LOC_list = ["America/Los_Angeles"]
+#     # else: str_LOC_list = str_LOCs.split(",")
+#
+#     l = lmap(str_LOC2lookup, str_LOC_list)
+#     return make_response("\n".join(l))
 
 def post(j_env):
-    uuid_COMMAND = j_env["uuid_COMMAND"]
-    str_LOCs = j_env.get("str_LOCs")
+    # raise Exception( type(j_env) )
 
-    # raise Exception(uuid_COMMAND, str_LOCs)
-    return get(uuid_COMMAND,str_LOCs=str_LOCs)
+    tzname_CR = h_propdown(j_env, ["chatroom", "timezone"], )
+    uuid_CMD = h_propdown(j_env, ["command","uuid"],)
+    loc_list = h_propdown(j_env, ["command","locations"],)
+
+    if not loc_list:
+        loc_list = [tzname_CR] if tzname_CR else ["America/Los_Angeles"]
+
+    l = lmap(str_LOC2lookup, loc_list)
+    return make_response("\n".join(l))
 
 
 def create_str_CITY2tz_name():
