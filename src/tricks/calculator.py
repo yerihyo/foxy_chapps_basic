@@ -2,9 +2,9 @@ import ast
 import math
 import operator
 
-from flask import Flask, url_for
+from flask import Flask, url_for, make_response
 
-from src.utils.utils import l_singleton2obj
+from utils.utils import l_singleton2obj
 
 # app = Flask(__name__)
 
@@ -16,9 +16,11 @@ operators = {ast.Add: operator.add,
              ast.Sub: operator.sub,
              ast.Mult: operator.mul,
              ast.Div: operator.truediv,
+             ast.FloorDiv: operator.floordiv,
              ast.Pow: operator.pow,
              ast.BitXor: operator.xor,
              ast.USub: operator.neg,
+             ast.Mod: operator.mod,
              }
 
 h_func_unary = {"sin": math.sin,
@@ -31,10 +33,13 @@ h_func_unary = {"sin": math.sin,
 h_name = {"PI": math.pi}
 
 
-def calculate(s, ):
+def calculate(s_IN, ):
     h_env = {}
-    return _eval_calculate(ast.parse(s, mode='eval').body, h_env)
-
+    try:
+        s_OUT = _eval_calculate(ast.parse(s_IN, mode='eval').body, h_env)
+        return s_OUT
+    except:
+        return make_response("Invalid input: '{0}'".format(s_IN))
 
 def _eval_calculate(node, h_env):
     t = type(node)
