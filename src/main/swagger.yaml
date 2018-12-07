@@ -24,7 +24,7 @@ paths:
   /time:
     post:
       tags: [time]
-      operationId: tricks.time.replies.post
+      operationId: tricks.time.post
       parameters:
       - name: j_env
         in: body
@@ -45,6 +45,26 @@ paths:
                 locations:
                   $ref: "#/definitions/Locations_timezone"
 
+      responses:
+        200:
+          description: update time
+        404:
+          description: Error
+
+  /py2json:
+    put:
+      tags: [py2json]
+      operationId: tricks.py2json.put
+      parameters:
+      - name: s
+        description: Some message.
+        in: body
+        schema:
+          type: string
+      - name: indent
+        description: json.dumps() indent parameter
+        in: query
+        type: integer
       responses:
         200:
           description: update time

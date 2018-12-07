@@ -5,15 +5,13 @@ import pytz
 from flask import make_response
 
 import settings
-from utils.utils import dt2timezone, h_propdown
+from utils.utils import dt2timezone, env2v_or_none,lmap
 import os
 from collections import defaultdict
 from datetime import datetime
 from urllib.request import urlretrieve
 from urllib.parse import urljoin
 from zipfile import ZipFile
-
-lmap = lambda f,l: list(map(f,l))
 
 def str_LOC2timezone(str_LOC):
     try: return pytz.timezone(str_LOC)
@@ -39,19 +37,13 @@ def str_LOC2lookup(str_LOC):
 
 
 
-# def get(uuid_COMMAND, str_LOC_list=None,):
-#     if str_LOC_list is None: str_LOC_list = ["America/Los_Angeles"]
-#     # else: str_LOC_list = str_LOCs.split(",")
-#
-#     l = lmap(str_LOC2lookup, str_LOC_list)
-#     return make_response("\n".join(l))
-
 def post(j_env):
     # raise Exception( type(j_env) )
 
-    tzname_CR = h_propdown(j_env, ["chatroom", "timezone"], )
-    uuid_CMD = h_propdown(j_env, ["command","uuid"],)
-    loc_list = h_propdown(j_env, ["command","locations"],)
+    f_down = lambda h,k: (h.get(k) if h else None)
+    tzname_CR = env2v_or_none(j_env, [["chatroom", "timezone"]],)
+    uuid_CMD = env2v_or_none(j_env, [["command","uuid"]],)
+    loc_list = env2v_or_none(j_env, [["command","locations"]],)
 
     if not loc_list:
         loc_list = [tzname_CR] if tzname_CR else ["America/Los_Angeles"]
@@ -98,14 +90,3 @@ def str_LOC_expansion(h_IN):
 
     return h_OUT
 
-    # print("Number of available city names (with aliases): %d" % len(city2tz))
-    #
-    # #
-    # n = sum((len(timezones) > 1) for city, timezones in city2tz.iteritems())
-    # print("")
-    # print("Find number of ambigious city names\n "
-    #       "(that have more than one associated timezone): %d" % n)
-    #
-    # #
-    # fmt = '%Y-%m-%d %H:%M:%S %Z%z'
-    # city = "Zurich"

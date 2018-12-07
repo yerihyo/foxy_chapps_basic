@@ -1,5 +1,12 @@
 from functools import reduce
 
+def pipe_funcs(l):
+    def f(*args,**kwargs):
+        v0 = l[0](*args,**kwargs)
+        v9 = reduce(lambda v,f:f(v),l[1:], v0)
+        return v9
+    return f
+
 
 def dt2is_aware(dt):
     if dt.tzinfo is None: return False
@@ -12,8 +19,14 @@ def dt2timezone(dt, tz):
     if dt2is_naive(dt): return tz.localize(dt)
     return dt.astimezone(tz)
 
+lmap = pipe_funcs([map,list,])
 
-def h_propdown(h, branches, f_down=None,):
-    if f_down is None: f_down = lambda x,k: x.get(k) if x else None
 
-    return reduce(f_down, branches, h)
+def env2v_or_none(j, ll,):
+    err = None
+    for l in ll:
+        try: return reduce(lambda h,k:h[k],l,j)
+        except KeyError as e:
+            err = e
+
+    return None
