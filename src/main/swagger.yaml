@@ -52,16 +52,19 @@ paths:
           description: Error
 
   /py2json:
-    get:
+    put:
       tags: [py2json]
-      operationId: tricks.py2json.get
+      operationId: tricks.py2json.put
       parameters:
-      - name: pystr
-        in: query
-        description: python string
-        required: true
+      - name: s
+        description: Some message.
+        in: body
         schema:
           type: string
+      - name: indent
+        description: json.dumps() indent parameter
+        in: query
+        type: integer
       responses:
         200:
           description: update time
