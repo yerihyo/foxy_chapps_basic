@@ -1,6 +1,6 @@
 #!/bin/bash -eu
 
-FILE_PATH=$($(dirname ${BASH_SOURCE[0]})/filepath2readlink.bash ${BASH_SOURCE[0]})
+FILE_PATH=$(greadlink -f ${BASH_SOURCE[0]})
 # FILE_PATH=/Users/moon/projects/trickboxes/basic/scripts/setup.bash
 FILE_DIR=$(dirname $FILE_PATH)
 SCRIPTS_DIR=$FILE_DIR
