@@ -7,12 +7,11 @@ SCRIPTS_DIR=$FILE_DIR
 SRC_DIR=$(dirname $SCRIPTS_DIR)
 BASIC_DIR=$(dirname $SRC_DIR)
 
-#python $BASIC_DIR/app.py runserver
 
-pushd $SRC_DIR
+branch_name=$($SCRIPTS_DIR/git_branch.bash)
 
-export FLASK_APP=main/app.py
-export FLASK_DEBUG=1
-flask run --port=5001
-
-popd
+git push $branch_name
+git checkout develop
+git merge --no-ff $branch_name
+git push origin develop
+git checkout $branch_name

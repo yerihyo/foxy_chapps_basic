@@ -7,7 +7,9 @@ consumes:
 produces:
   - application/json
 #parameters:
-#  $ref: src/date/swagger.yaml
+#  $ref: src/date/timeml
+
+basePath: /0.1
 paths:
   /hello_world:
     get:
@@ -19,24 +21,45 @@ paths:
         404:
           description: Not Found
 
-  /date:
-    get:
-      tags: [date]
-      operationId: tricks.date.views.lookup
-      summary: Return current time
+  /time:
+    post:
+      tags: [time]
+      operationId: tricks.time.replies.post
       parameters:
-      - name: uuid_COMMAND
-        in: query
-        description: hello
-        type: string
-      - name: str_LOCs
-        in: query
-        required: false
-        type: string
+      - name: j_env
+        in: body
+        description: environment
+        schema:
+          type: object
+          properties:
+            chatroom:
+              type: object
+              properties:
+                timezone:
+                  $ref: "#/definitions/Timezone"
+            command:
+              type: object
+              properties:
+                uuid:
+                  $ref: "#/definitions/Uuid"
+                locations:
+                  $ref: "#/definitions/Locations_timezone"
+
       responses:
         200:
-          description: Return date successful
+          description: update time
         404:
           description: Error
 
-
+definitions:
+  Uuid:
+    type: string
+    example: "asdfasdfasdfasdf"
+  Timezone:
+    type: string
+    example: "Asia/Singapore"
+  Locations_timezone:
+    type: array
+    items:
+      type: string
+    example: ["tokyo","Asia/Bangkok"]
