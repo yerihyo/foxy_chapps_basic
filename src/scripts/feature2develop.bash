@@ -10,7 +10,7 @@ BASIC_DIR=$(dirname $SRC_DIR)
 
 branch_name=$($SCRIPTS_DIR/git_branch.bash)
 
-git push $branch_name
+git push origin $branch_name
 git checkout develop
 git merge --no-ff $branch_name
 git push origin develop
