@@ -7,7 +7,7 @@ consumes:
 produces:
   - application/json
 #parameters:
-#  $ref: src/date/swagger.yaml
+#  $ref: src/date/timeml
 
 basePath: /0.1
 paths:
