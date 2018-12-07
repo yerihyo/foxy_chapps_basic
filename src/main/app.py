@@ -10,14 +10,14 @@ import graphene
 from graphene_sqlalchemy import SQLAlchemyObjectType, SQLAlchemyConnectionField
 from flask_graphql import GraphQLView
 
-from main.schema import Query
-from main.rest import Mutation
+
 import sys
 
 from flask import cli
 
-BASE_DIR = os.path.abspath(os.path.dirname(__file__))
-SRC_DIR = os.path.join(BASE_DIR,"src")
+MAIN_DIR = os.path.dirname(os.path.abspath(__file__))
+SRC_DIR = os.path.dirname(MAIN_DIR)
+BASE_DIR = os.path.dirname(SRC_DIR)
 
 # app initialization
 cx_app = connexion.App(__name__,) # specification_dir='swagger/')
@@ -38,18 +38,20 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 # Modules
 db = SQLAlchemy(app)
 
+if False:
+    from main.schema import Query
+    from main.rest import Mutation
+    schema = graphene.Schema(query=Query, mutation=Mutation)
 
-schema = graphene.Schema(query=Query, mutation=Mutation)
-
-# Routes
-app.add_url_rule(
-    '/graphql',
-    view_func=GraphQLView.as_view(
-        'graphql',
-        schema=schema,
-        graphiql=True # for having the GraphiQL interface
+    # Routes
+    app.add_url_rule(
+        '/graphql',
+        view_func=GraphQLView.as_view(
+            'graphql',
+            schema=schema,
+            graphiql=True # for having the GraphiQL interface
+        )
     )
-)
 
 
 # @app.route('/')

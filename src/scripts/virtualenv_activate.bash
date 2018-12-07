@@ -1,6 +1,6 @@
 #!/bin/bash -eu
 
-FILE_PATH=$(greadlink -f ${BASH_SOURCE[0]})
+FILE_PATH=$($(dirname ${BASH_SOURCE[0]})/filepath2readlink.bash ${BASH_SOURCE[0]})
 # FILE_PATH=$(pwd)/src/scripts/virtualenv_activate.bash
 FILE_DIR=$(dirname $FILE_PATH)
 SCRIPTS_DIR=$FILE_DIR

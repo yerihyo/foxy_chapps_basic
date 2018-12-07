@@ -71,6 +71,27 @@ paths:
         404:
           description: Error
 
+  /calculator:
+    get:
+      tags: [calculator]
+      operationId: tricks.calculator.calculate
+      parameters:
+      - name: s
+        description: Some message.
+        in: body
+        schema:
+          type: string
+      - name: indent
+        description: json.dumps() indent parameter
+        in: query
+        type: integer
+      responses:
+        200:
+          description: update time
+        404:
+          description: Error
+
+
 definitions:
   Uuid:
     type: string

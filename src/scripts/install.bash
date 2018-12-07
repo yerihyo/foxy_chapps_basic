@@ -9,4 +9,4 @@ BASIC_DIR=$(dirname $SCRIPTS_DIR)
 
 
 # . $BASIC_DIR/venv/bin/activate
-pip install flask flask-graphql flask-migrate flask-sqlalchemy graphene graphene-sqlalchemy
+pip install flask flask-graphql flask-migrate flask-sqlalchemy graphene graphene-sqlalchemy connexion

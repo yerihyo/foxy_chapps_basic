@@ -22,6 +22,11 @@ def dt2timezone(dt, tz):
 lmap = pipe_funcs([map,list,])
 
 
+def l_singleton2obj(l, allow_empty_list=False,):
+    if len(l) == 1: return l[0]
+    if not l and allow_empty_list: return None
+    raise Exception(len(l), l)
+
 def env2v_or_none(j, ll,):
     err = None
     for l in ll:
