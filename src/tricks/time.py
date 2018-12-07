@@ -37,13 +37,6 @@ def str_LOC2lookup(str_LOC):
 
 
 
-# def get(uuid_COMMAND, str_LOC_list=None,):
-#     if str_LOC_list is None: str_LOC_list = ["America/Los_Angeles"]
-#     # else: str_LOC_list = str_LOCs.split(",")
-#
-#     l = lmap(str_LOC2lookup, str_LOC_list)
-#     return make_response("\n".join(l))
-
 def post(j_env):
     # raise Exception( type(j_env) )
 
